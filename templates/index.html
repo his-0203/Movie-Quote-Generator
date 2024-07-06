@@ -23,22 +23,22 @@
             <div>
                 <label for="style">Choose a style:</label>
                 <select name="style" id="style">
-                    <option value="Movies">Movies</option>
-                    <option value="Film Noir">Film Noir</option>
-                    <option value="Manga">Manga</option>
-                    <option value="Japanese animation">Japanese animation</option>
-                    <option value="Western Comic Book Style">Western Comic Book Style</option>
-                    <option value="clay art">clay art</option>
+                    <option value="Movies" {% if selected_style == "Movies" %}selected{% endif %}>Movies</option>
+                    <option value="Film Noir" {% if selected_style == "Film Noir" %}selected{% endif %}>Film Noir</option>
+                    <option value="Manga" {% if selected_style == "Manga" %}selected{% endif %}>Manga</option>
+                    <option value="Japanese animation" {% if selected_style == "Japanese animation" %}selected{% endif %}>Japanese animation</option>
+                    <option value="Western Comic Book Style" {% if selected_style == "Western Comic Book Style" %}selected{% endif %}>Western Comic Book Style</option>
+                    <option value="clay art" {% if selected_style == "clay art" %}selected{% endif %}>clay art</option>
                 </select>
             </div>
             <div>
                 <label for="period">Choose a period:</label>
                 <select name="period" id="period">
-                    <option value="1980s">1980s</option>
-                    <option value="1990s">1990s</option>
-                    <option value="2000s">2000s</option>
-                    <option value="2010s">2010s</option>
-                    <option value="2020s">2020s</option>
+                    <option value="1980s" {% if selected_style == "1980s" %}selected{% endif %}>1980s</option>
+                    <option value="1990s" {% if selected_style == "1990s" %}selected{% endif %}>1990s</option>
+                    <option value="2000s" {% if selected_style == "2000s" %}selected{% endif %}>2000s</option>
+                    <option value="2010s" {% if selected_style == "2010s" %}selected{% endif %}>2010s</option>
+                    <option value="2020s" {% if selected_style == "2020s" %}selected{% endif %}>2020s</option>
                 </select>
             </div>
             <textarea name="user_input" placeholder="Enter situation">{{ user_input }}</textarea>

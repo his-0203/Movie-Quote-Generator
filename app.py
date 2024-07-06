@@ -95,7 +95,7 @@ def home():
                     model="dall-e-3",
                     prompt=image_prompt,
                     n=1,
-                    size="512x512",
+                    size="1024x1024",
                     quality="standard"
                 )
                 response_image = image_response.data[0].url
