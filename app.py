@@ -65,7 +65,8 @@ def home():
                     {"role": "system", "content": "You are a film screenwriter. Create a line of dialogue that fits the genre, style, and decade."},
                     {"role": "user", "content": prompt}
                 ],
-                temperature=0.8
+                temperature=0.8,
+                max_tokens=50
             )
             response_text = text_response.choices[0].message.content
             
@@ -74,7 +75,8 @@ def home():
                 model="dall-e-3",
                 prompt=image_prompt,
                 n=1,
-                size="1792x1024"
+                size="1024x1024",
+                quality="standard"
             )
             response_image = image_response.data[0].url
 

@@ -25,7 +25,7 @@
                 <label for="style">Choose a style:</label>
                 <select name="style" id="style">
                     <option value="Anime">Anime</option>
-                    <option value="Manga">Manga</option>
+                    <option value="Cartoon">Cartoon</option>
                     <option value="Movie">Movie</option>
                 </select>
             </div>
@@ -39,23 +39,26 @@
                     <option value="20s">20s</option>
                 </select>
             </div>
-            <textarea name="user_input" placeholder="Enter your situation">{{ user_input }}</textarea>
+            <textarea name="user_input" placeholder="Enter situation">{{ user_input }}</textarea>
             <div class="button-group">
                 <button type="submit" id="submit-button">
                     <span class="button-text">Generate Quote 🚀</span>
                     <div class="spinner" id="button-spinner" style="display: none;"></div>
                 </button>
+                <button type="button" id="support-button" class="outline-button">Support Creator 🍺</button>
             </div>
         </form>
         {% if response %}
             <section class="response-section">
-                <h2>Generated Quote 💬</h2>
                 <div class="quote-container">
                     <img src="{{ response_image }}" alt="Generated Image" class="quote-image">
                     <div class="quote-text">{{ response }}</div>
                 </div>
-                <button id="share-twitter">Share on Twitter</button>
             </section>
+            <button id="share-twitter" class="x-button">
+                <img src="/static/images/x-logo.png" alt="X Logo" class="x-logo">
+                Share on Twitter
+            </button>
         {% endif %}
     </main>
     <footer>
@@ -78,6 +81,10 @@
                 window.open(twitterUrl, '_blank');
             });
         }
+
+        document.getElementById('support-button').addEventListener('click', () => {
+            window.open('https://buymeacoffee.com/his0203', '_blank'); 
+        });
     </script>
 </body>
 </html>
