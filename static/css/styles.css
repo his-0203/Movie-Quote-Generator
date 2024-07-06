@@ -52,14 +52,23 @@ label {
 select, textarea {
     width: 100%;
     padding: 10px;
-    font-size: 16px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-sizing: border-box;
 }
 
+select {
+    font-weight: 600;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%204%205%22%3E%3Cpath%20fill%3D%22%236200ea%22%20d%3D%22M2%200L0%202h4L2%200zM0%203h4L2%205%200%203z%22/%3E%3C/svg%3E'); /* 화살표 아이콘 추가 */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+}
+
 textarea {
+    font-size: 16px;
     height: 100px;
     resize: none; /* 크기 조절 불가 */
 }
