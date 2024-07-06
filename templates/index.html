@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Quote Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Movie Quote Generator</h1>
+    </header>
+    <main>
+        <p class="instruction-text">Select a genre, style, decade, and enter a situation.</p>
+        <form method="POST" id="genre-form">
+            <div>
+                <label for="genre">Choose a genre:</label>
+                <select name="genre" id="genre">
+                    {% for key, value in content_map.items() %}
+                        <option value="{{ key }}" {% if key == selected_genre %}selected{% endif %}>{{ key }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="style">Choose a style:</label>
+                <select name="style" id="style">
+                    <option value="Anime">Anime</option>
+                    <option value="Manga">Manga</option>
+                    <option value="Movie">Movie</option>
+                </select>
+            </div>
+            <div>
+                <label for="decade">Choose a decade:</label>
+                <select name="decade" id="decade">
+                    <option value="80s">80s</option>
+                    <option value="90s">90s</option>
+                    <option value="00s">00s</option>
+                    <option value="10s">10s</option>
+                    <option value="20s">20s</option>
+                </select>
+            </div>
+            <textarea name="user_input" placeholder="Enter your situation">{{ user_input }}</textarea>
+            <div class="button-group">
+                <button type="submit" id="submit-button">
+                    <span class="button-text">Generate Quote 🚀</span>
+                    <div class="spinner" id="button-spinner" style="display: none;"></div>
+                </button>
+            </div>
+        </form>
+        {% if response %}
+            <section class="response-section">
+                <h2>Generated Quote 💬</h2>
+                <div class="quote-container">
+                    <img src="{{ response_image }}" alt="Generated Image" class="quote-image">
+                    <div class="quote-text">{{ response }}</div>
+                </div>
+                <button id="share-twitter">Share on Twitter</button>
+            </section>
+        {% endif %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Heesoo Jin. All rights reserved.</p>
+    </footer>
+    <script>
+        document.getElementById('genre-form').addEventListener('submit', event => {
+            const submitButton = document.getElementById('submit-button');
+            submitButton.disabled = true;
+            document.querySelector('.button-text').style.display = 'none';
+            document.getElementById('button-spinner').style.display = 'block';
+        });
+
+        const shareTwitterButton = document.getElementById('share-twitter');
+        if (shareTwitterButton) {
+            shareTwitterButton.addEventListener('click', () => {
+                const url = encodeURIComponent(window.location.href);
+                const text = `Check out this movie quote: "${response}" #MovieQuoteGenerator`;
+                const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${url}`;
+                window.open(twitterUrl, '_blank');
+            });
+        }
+    </script>
+</body>
+</html>
