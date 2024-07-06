@@ -189,6 +189,7 @@ textarea {
     min-width: 160px;
     display: flex;
     align-items: center;
+    justify-content: center;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
     font-weight: 600;

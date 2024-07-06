@@ -59,9 +59,9 @@
                     <div class="quote-text">{{ response }}</div>
                 </div>
             </section>
-            <button id="share-twitter" class="x-button">
+            <button id="share-twitter" class="x-button" data-response-text="{{ response }}">
                 <img src="/static/images/x-logo.png" alt="X Logo" class="x-logo">
-                Share on Twitter
+                Share on X
             </button>
         {% endif %}
     </main>
@@ -103,15 +103,30 @@
             document.getElementById('button-spinner').style.display = 'block';
         });
 
-        const shareTwitterButton = document.getElementById('share-twitter');
-        if (shareTwitterButton) {
-            shareTwitterButton.addEventListener('click', () => {
-                const url = encodeURIComponent(window.location.href);
-                const text = `Check out this movie quote: "${response}" #MovieQuoteGenerator`;
-                const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${url}`;
-                window.open(twitterUrl, '_blank');
-            });
-        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const shareTwitterButton = document.getElementById('share-twitter');
+        
+            if (shareTwitterButton) {
+                shareTwitterButton.addEventListener('click', () => {
+                    const url = encodeURIComponent(window.location.href);
+                    const responseText = shareTwitterButton.getAttribute('data-response-text');
+        
+                    // Check user's language
+                    const userLang = navigator.language || navigator.userLanguage;
+                    let text;
+        
+                    if (userLang === 'ko' || userLang === 'ko-KR') {
+                        text = `${responseText}\n\n당신만의 영화의 한장면과 대사를 만들어보세요.🎬\n#MovieQuoteGenerator #명대사제조기`;
+                    } else {
+                        text = `${responseText}\n\nCreate your own movie scenes and dialog.🎬\n#MovieQuoteGenerator`
+                    }
+        
+                    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${url}`;
+                    window.open(twitterUrl, '_blank');
+                });
+            }
+        });
 
         document.getElementById('support-button').addEventListener('click', () => {
             window.open('https://buymeacoffee.com/his0203', '_blank'); 
