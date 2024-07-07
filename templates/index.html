@@ -15,7 +15,7 @@
             <div>
                 <label for="genre">Choose a genre:</label>
                 <select name="genre" id="genre">
-                    {% for key, value in content_map.items() %}
+                    {% for key, value in movie_genre.items() %}
                         <option value="{{ key }}" {% if key == selected_genre %}selected{% endif %}>{{ key }}</option>
                     {% endfor %}
                 </select>
