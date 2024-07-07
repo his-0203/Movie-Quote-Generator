@@ -2,15 +2,22 @@
   "version": 2,
   "builds": [
     {
+      "src": "ads.txt",
+      "use": "@vercel/static"
+    },
+    {
       "src": "app.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
+      "src": "/ads.txt",
+      "dest": "/ads.txt"
+    },
+    {
       "src": "/(.*)",
       "dest": "app.py"
     }
   ]
 }
-
