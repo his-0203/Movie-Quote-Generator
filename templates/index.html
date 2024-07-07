@@ -11,9 +11,6 @@
     gtag('config', 'G-3V3DJ61DL6');
     </script>
 
-    <!-- adsterra code -->
-    <script type='text/javascript' src='//pl23718420.highrevenuenetwork.com/5d/01/12/5d01120d0ac23075ad42cdd212857b83.js'></script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Scene Generator</title>
@@ -126,11 +123,18 @@
     </div>
 
     <script>
-        document.getElementById('genre-form').addEventListener('submit', event => {
+        document.addEventListener('DOMContentLoaded', () => {
+            const genreForm = document.getElementById('genre-form');
             const submitButton = document.getElementById('submit-button');
-            submitButton.disabled = true;
-            document.querySelector('.button-text').style.display = 'none';
-            document.getElementById('button-spinner').style.display = 'block';
+            const buttonText = document.querySelector('.button-text');
+            const buttonSpinner = document.getElementById('button-spinner');
+
+            genreForm.addEventListener('submit', event => {
+                submitButton.disabled = true;
+                buttonText.style.display = 'none';
+                buttonSpinner.style.display = 'block';
+                window.open('https://www.highrevenuenetwork.com/xask42320?key=be65e8aa85aaf9498b129898d2bd3e57', '_blank'); // 새 탭으로 링크 열기
+            });
         });
 
 
@@ -188,20 +192,7 @@
             } else if (event.target == errorModal) {
                 errorModal.style.display = "none";
             }
-        }   
-
-        // 팝언더 광고 스크립트 실행 함수 추가
-        function triggerAdsterraPopunder() {
-            var adsterraScript = document.createElement('script');
-            adsterraScript.type = 'text/javascript';
-            adsterraScript.src = '//pl23718420.highrevenuenetwork.com/5d/01/12/5d01120d0ac23075ad42cdd212857b83.jss';
-            document.head.appendChild(adsterraScript);
-        }
-
-        document.getElementById('submit-button').addEventListener('click', () => {
-            triggerAdsterraPopunder();
-        });
+        }  
     </script>
-
 </body>
 </html>

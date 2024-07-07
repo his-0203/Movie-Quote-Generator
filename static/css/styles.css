@@ -102,6 +102,24 @@ textarea {
     background-color: #bc8d00;
 }
 
+#submit-button:disabled .button-text {
+    display: none;
+}
+
+#submit-button:disabled .spinner {
+    display: block;
+}
+
+.spinner {
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border-left-color: #ece1fc;
+    animation: spin 1s linear infinite;
+    display: none; /* 기본적으로 숨김 */
+}
+
 .outline-button {
     padding: 8px 16px;
     font-size: 16px;
@@ -127,15 +145,6 @@ textarea {
     font-size: 14px;
     text-decoration: underline;
     margin-top: 20px;
-}
-
-.spinner {
-    border: 2px solid rgba(0, 0, 0, 0.1);
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border-left-color: #ece1fc;
-    animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
