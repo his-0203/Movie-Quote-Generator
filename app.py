@@ -86,7 +86,7 @@ def home():
                         {"role": "system", "content": "You are a movie writer. Write one line of dialog that fits the genre, style, and time period."},
                         {"role": "user", "content": prompt}
                     ],
-                    temperature=0.8,
+                    temperature=0.5,
                 )
                 response_text = text_response.choices[0].message.content
                 
