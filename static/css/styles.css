@@ -18,13 +18,99 @@ html, body {
 }
 
 header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: transparent;
     color: #f2b600;
-    padding: 20px;
+    padding: 20px 40px;
+    box-sizing: border-box; /* 추가된 부분 */
     width: 100%;
     text-align: center;
     margin-bottom: 12px;
 }
+
+h1 {
+    margin: 0;
+}
+
+.nav-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav-menu li {
+    position: relative;
+    margin-left: 20px;
+}
+
+.nav-menu li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-menu li a:hover {
+    background-color: #f2b600;
+    color: #343a40;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px 15px; /* 드롭다운 버튼의 패딩 추가 */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: transparent;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out; /* 패딩 전환 추가 */
+    max-height: 0;
+    margin-top: 8px;
+}
+
+.dropdown-content a {
+    color: #343a40;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-content a:hover {
+    background-color: #343a40;
+    color: #f2b600;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    max-height: 200px; /* Adjust this value as needed */
+    padding-top: 10px; /* 컨텐츠와 버튼 사이의 간격 */
+}
+
+.dropdown:hover .dropbtn {
+    color: #fff;
+    background-color: #343a40;
+}
+
 
 main {
     background-color: #ffffff;
