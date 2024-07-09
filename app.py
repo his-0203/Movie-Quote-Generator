@@ -3,6 +3,9 @@ from openai import OpenAI, BadRequestError
 from dotenv import load_dotenv
 from langdetect import detect
 import os
+import requests
+import base64
+from io import BytesIO
 
 # .env 파일 로드
 load_dotenv()
@@ -63,13 +66,13 @@ def home():
     response_image = None
     user_input = ""
     show_error_modal = False
-    
+
     if request.method == 'POST':
         selected_genre = request.form.get('genre')
         selected_style = request.form.get('style')
         selected_period = request.form.get('period')
         user_input = request.form.get('user_input')
-        
+
         try:
             # 입력된 텍스트의 언어 감지
             language = detect(user_input)
@@ -77,7 +80,6 @@ def home():
                 prompt = f"{movie_genre[selected_genre]['prompt_ko']} {user_input} 스타일: {selected_style}, 연도: {selected_period}"
             else:
                 prompt = f"{movie_genre[selected_genre]['prompt_en']} {user_input} Style: {selected_style}, Decade: {selected_period}"
-
 
             if user_input and selected_genre and selected_style and selected_period:
                 text_response = client.chat.completions.create(
@@ -89,7 +91,7 @@ def home():
                     temperature=0.5,
                 )
                 response_text = text_response.choices[0].message.content
-                
+
                 image_prompt = f"Create a scene from a {selected_genre} film in {selected_style} style from the {selected_period}. {user_input}"
                 image_response = client.images.generate(
                     model="dall-e-3",
@@ -99,8 +101,11 @@ def home():
                     quality="standard"
                 )
                 response_image = image_response.data[0].url
-                
-        except BadRequestError as e:
+
+        except BadRequestError:
+            show_error_modal = True
+        except Exception as e:
+            print(f"Unexpected Error: {e}")
             show_error_modal = True
 
     return render_template('index.html', movie_genre=movie_genre, selected_genre=selected_genre, selected_style=selected_style, selected_period=selected_period, user_input=user_input, response=response_text, response_image=response_image, show_error_modal=show_error_modal)

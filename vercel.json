@@ -20,8 +20,8 @@
       "dest": "app.py"
     },
     {
-      "src": "/api/cors-handler",
-      "dest": "api/cors-handler.js"
+      "src": "/api/proxy",
+      "dest": "/api/proxy.js"
     }
   ]
 }
