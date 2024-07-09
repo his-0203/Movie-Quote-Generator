@@ -16,18 +16,17 @@
       "dest": "/ads.txt"
     },
     {
-      "src": "/(.*)",
-      "dest": "app.py"
+      "src": "/api/(.*)",
+      "dest": "/api/app.py"
     },
     {
       "src": "/api/proxy",
       "dest": "/api/proxy.js"
     }
   ],
-  
   "functions": {
     "api/app.py": {
-      "maxDuration": 60
+      "maxDuration": 300
     }
   }
 }
