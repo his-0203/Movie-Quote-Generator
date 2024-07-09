@@ -18,6 +18,10 @@
     {
       "src": "/(.*)",
       "dest": "app.py"
+    },
+    {
+      "src": "/api/cors-handler",
+      "dest": "/api/cors-handler.js"
     }
   ]
 }
