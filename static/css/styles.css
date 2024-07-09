@@ -5,8 +5,15 @@
     font-style: normal;
 }
 
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+* {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
 html, body {
-    font-family: 'Roboto', sans-serif;
     background-color: #1e2022;
     height: 100%;
     width: 100%;
@@ -31,7 +38,12 @@ header {
 }
 
 h1 {
+    font-family: "Anton", sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    text-align: left;
     margin: 0;
+    width: 80%;
 }
 
 .nav-menu {
@@ -42,14 +54,20 @@ h1 {
 }
 
 .nav-menu li {
+    text-decoration: none;
+    color: black;
+    font-weight: 700;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
     position: relative;
     margin-left: 20px;
 }
 
-.nav-menu li a {
+.nav-menu a {
     text-decoration: none;
-    color: #fff;
-    font-weight: bold;
+    color: black;
+    background-color: white;
+    font-weight: 700;
     padding: 10px 15px;
     border-radius: 5px;
     transition: background-color 0.3s, color 0.3s;
@@ -60,56 +78,140 @@ h1 {
     color: #343a40;
 }
 
+/* Dropdown Container */
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
+/* Dropdown Button */
 .dropbtn {
-    background-color: transparent;
+    background-color: white;
     border: none;
     cursor: pointer;
     padding: 10px 15px; /* 드롭다운 버튼의 패딩 추가 */
+    transition: color 0.3s, background-color 0.3s; /* 호버 효과에 필요한 트랜지션 추가 */
 }
 
+/* Dropdown Content */
 .dropdown-content {
-    display: none;
+    visibility: hidden; /* 숨기기 */
+    opacity: 0; /* 투명도 */
     position: absolute;
-    background-color: transparent;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
     right: 0;
+    background-color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     overflow: hidden;
-    transition: max-height 0.3s ease-out, padding 0.3s ease-out; /* 패딩 전환 추가 */
     max-height: 0;
-    margin-top: 8px;
+    transition: visibility 0.3s, opacity 0.3s, max-height 0.3s ease-out, padding 0.3s ease-out; /* 패딩 전환 추가 */
+    z-index: 1;
 }
 
+
+/* Dropdown Content Links */
 .dropdown-content a {
     color: #343a40;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    min-width: 240px;
     transition: background-color 0.3s, color 0.3s;
 }
 
+/* Hover Effects */
 .dropdown-content a:hover {
     background-color: #343a40;
     color: #f2b600;
 }
 
 .dropdown:hover .dropdown-content {
-    display: block;
+    visibility: visible; /* 보이기 */
+    opacity: 1; /* 투명도 복원 */
     max-height: 200px; /* Adjust this value as needed */
-    padding-top: 10px; /* 컨텐츠와 버튼 사이의 간격 */
+    margin-top: 16px;
 }
 
 .dropdown:hover .dropbtn {
-    color: #fff;
-    background-color: #343a40;
+    color: black;
+    background-color: #fff;
 }
+
+
+/* Mobile Styles */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger-menu span {
+    height: 2px;
+    width: 32px;
+    background-color: white;
+    margin: 4px 0;
+    transition: 0.4s;
+}
+
+.mobile-dropdown-content {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: -70%; /* 오른쪽 밖으로 숨기기 */
+    width: 70%; /* 화면의 70% 차지 */
+    height: 100%;
+    background-color: #ffffff;
+    z-index: 1;
+    overflow-y: auto; /* 스크롤 가능하도록 */
+    padding-top: 60px; /* 상단 여백 추가 */
+    box-shadow: -4px 0 8px rgba(0,0,0,0.1); /* 약간의 그림자 효과 추가 */
+    transition: right 0.4s ease-in-out; /* 부드러운 애니메이션 추가 */
+}
+
+.mobile-dropdown-content.show {
+    right: 0; /* 화면 안으로 슬라이드 */
+}
+
+.mobile-dropdown-content a {
+    font-weight: 800;
+    color: #343a40;
+    padding: 20px 16px;
+    text-decoration: none;
+    display: flex; /* 플렉스 박스 사용 */
+    align-items: center; /* 아이템을 중앙 정렬 */
+    transition: background-color 0.3s, color 0.3s;
+    border-bottom: 1px solid #f0f0f0; /* 각 항목 아래에 경계선 추가 */
+}
+
+.mobile-dropdown-content a:hover {
+    background-color: #f2b600;
+    color: #ffffff;
+}
+
+.mobile-dropdown-content a .icon {
+    margin-right: 16px; /* 아이콘과 텍스트 사이 간격 */
+    font-size: 20px; /* 아이콘 크기 조정 */
+}
+
+.close-button {
+    color: #343a40;
+    font-size: 36px;
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    cursor: pointer;
+}
+
+.dropdown-content .disable {
+    font-weight: 400;
+    color: rgb(198, 198, 198);
+}
+
+.mobile-dropdown-content .disable {
+    font-weight: 400;
+    color: rgb(198, 198, 198);
+}
+
 
 
 main {
@@ -118,7 +220,7 @@ main {
     margin: 12px 0 48px 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    width: 90%;
+    width: 80%;
     max-width: 800px;
     display: flex;
     flex-direction: column;
@@ -133,20 +235,47 @@ form {
 label {
     display: block;
     margin-bottom: 8px;
-    font-weight: bold;
+    font-weight: 800;
+}
+
+/* Flexbox 컨테이너 */
+.select-container {
+    display: flex;
+    flex-wrap: wrap; /* 줄 바꿈을 허용 */
+    gap: 20px; /* 아이템 간의 간격 */
+    justify-content: space-between; /* 아이템을 균등하게 분배 */
+}
+
+/* 각 Select Box의 스타일 */
+.select-box {
+    flex: 1 1 calc(33.33% - 20px); /* 3개의 아이템을 한 줄에 배치하고 간격 고려 */
+    display: flex;
+    flex-direction: column; /* 레이블과 선택 상자를 세로로 정렬 */
+}
+
+.select-box label {
+    margin-bottom: 8px; /* 레이블과 선택 상자 간격 */
+    font-weight: bold; /* 레이블 텍스트 굵게 */
+}
+
+.select-box select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
 }
 
 select, textarea {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #e0e0e0;
     border-radius: 8px;
     box-sizing: border-box;
 }
 
 select {
-    font-weight: 600;
+    font-weight: 400;
     appearance: none;
     background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%204%205%22%3E%3Cpath%20fill%3D%22%236200ea%22%20d%3D%22M2%200L0%202h4L2%200zM0%203h4L2%205%200%203z%22/%3E%3C/svg%3E'); /* 화살표 아이콘 추가 */
     background-repeat: no-repeat;
@@ -213,7 +342,7 @@ textarea {
     font-weight: 600;
     color: black;
     background-color: transparent;
-    border: 2px solid black;
+    border: 1px solid black;
     border-radius: 8px;
     cursor: pointer;
     min-height: 48px;
@@ -232,6 +361,7 @@ textarea {
     font-size: 14px;
     text-decoration: underline;
     margin-top: 20px;
+    text-decoration: none;
 }
 
 @keyframes spin {
@@ -312,9 +442,6 @@ textarea {
     margin-right: 8px;
 }
 
-#ad-container {
-    margin-bottom: 20px;
-}
 
 #ad-small-screen {
     display: none;
@@ -328,7 +455,7 @@ textarea {
 footer {
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
-    padding: 10px;
+    padding: 24px;
     text-align: center;
     width: 100%;
 }
@@ -355,6 +482,30 @@ footer p {
     #ad-small-screen {
         display: block;
     }
+
+    .nav-menu {
+        display: none;
+    }
+    
+    .hamburger-menu {
+        display: flex;
+    }
+
+    .mobile-dropdown-content.show {
+        display: block;
+    }
+
+    .mobile-dropdown-content {
+        right: -40%; /* 오른쪽 밖으로 숨기기 */
+        width: 40%; /* 화면의 70% 차지 */
+
+    }
+
+    .select-box {
+        flex: 1 1 100%; /* 화면 크기가 작을 때 아이템을 세로로 배치 */
+        gap: 0px;
+    }
+    
 }
 
 @media (max-width: 480px) {
@@ -365,6 +516,16 @@ footer p {
     .instruction-text {
         font-size: 16px;
         margin-bottom: 20px;
+    }
+
+    header {
+        padding: 20px 20px;
+    }
+
+    .mobile-dropdown-content {
+        right: -80%; /* 오른쪽 밖으로 숨기기 */
+        width: 80%; /* 화면의 70% 차지 */
+
     }
 }
 

@@ -42,17 +42,31 @@
 </head>
 <body>
     <header>
-        <h1>Movie Scene Generator 🎬</h1>
+        <h1>🎞️ Movie Scene Generator</h1>
         <nav>
             <ul class="nav-menu">
                 <li class="dropdown">
                     <a href="#" class="dropbtn">Projects</a>
                     <div class="dropdown-content">
                         <a href="#" onclick="window.open('https://emotional-gpt.vercel.app/', '_blank')">Insideout Mindset</a>
-                        <!-- 다른 프로젝트들을 여기에 추가할 수 있습니다 -->
+                        <a href="#" class="disable">Coming soon</a>
                     </div>
                 </li>
             </ul>
+            <div class="hamburger-menu" id="hamburgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="mobile-dropdown-content" id="mobileDropdownContent">
+                <span class="close-button" id="mobileDropdownClose">&times;</span>
+                <a href="#" onclick="window.open('https://emotional-gpt.vercel.app/', '_blank')">
+                    Insideout Mindset
+                </a>
+                <a href="#" class="disable">
+                    SOON
+                </a>
+            </div>
         </nav>
     </header>
     <div id="ad-container">
@@ -83,34 +97,36 @@
     </div>
     <main>
         <form method="POST" id="genre-form">
-            <div>
-                <label for="genre">Choose a genre:</label>
-                <select name="genre" id="genre">
-                    {% for key, value in movie_genre.items() %}
-                        <option value="{{ key }}" {% if key == selected_genre %}selected{% endif %}>{{ key }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div>
-                <label for="style">Choose a style:</label>
-                <select name="style" id="style">
-                    <option value="Movies" {% if selected_style == "Movies" %}selected{% endif %}>Movies</option>
-                    <option value="Film Noir" {% if selected_style == "Film Noir" %}selected{% endif %}>Film Noir</option>
-                    <option value="Manga" {% if selected_style == "Manga" %}selected{% endif %}>Manga</option>
-                    <option value="Japanese animation" {% if selected_style == "Japanese animation" %}selected{% endif %}>Japanese animation</option>
-                    <option value="Western Comic Book Style" {% if selected_style == "Western Comic Book Style" %}selected{% endif %}>Western Comic Book Style</option>
-                    <option value="clay art" {% if selected_style == "clay art" %}selected{% endif %}>clay art</option>
-                </select>
-            </div>
-            <div>
-                <label for="period">Choose a period:</label>
-                <select name="period" id="period">
-                    <option value="1980s" {% if selected_period == "1980s" %}selected{% endif %}>1980s</option>
-                    <option value="1990s" {% if selected_period == "1990s" %}selected{% endif %}>1990s</option>
-                    <option value="2000s" {% if selected_period == "2000s" %}selected{% endif %}>2000s</option>
-                    <option value="2010s" {% if selected_period == "2010s" %}selected{% endif %}>2010s</option>
-                    <option value="2020s" {% if selected_period == "2020s" %}selected{% endif %}>2020s</option>
-                </select>
+            <div class="select-container">
+                <div class="select-box">
+                    <label for="genre">🎭 Choose a genre:</label>
+                    <select name="genre" id="genre">
+                        {% for key, value in movie_genre.items() %}
+                            <option value="{{ key }}" {% if key == selected_genre %}selected{% endif %}>{{ key }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="select-box">
+                    <label for="style">🎨 Choose a style:</label>
+                    <select name="style" id="style">
+                        <option value="Movies" {% if selected_style == "Movies" %}selected{% endif %}>Movies</option>
+                        <option value="Film Noir" {% if selected_style == "Film Noir" %}selected{% endif %}>Film Noir</option>
+                        <option value="Manga" {% if selected_style == "Manga" %}selected{% endif %}>Manga</option>
+                        <option value="Japanese animation" {% if selected_style == "Japanese animation" %}selected{% endif %}>Japanese animation</option>
+                        <option value="Western Comic Book Style" {% if selected_style == "Western Comic Book Style" %}selected{% endif %}>Western Comic Book Style</option>
+                        <option value="clay art" {% if selected_style == "clay art" %}selected{% endif %}>clay art</option>
+                    </select>
+                </div>
+                <div class="select-box">
+                    <label for="period">🕰️ Choose a period:</label>
+                    <select name="period" id="period">
+                        <option value="1980s" {% if selected_period == "1980s" %}selected{% endif %}>1980s</option>
+                        <option value="1990s" {% if selected_period == "1990s" %}selected{% endif %}>1990s</option>
+                        <option value="2000s" {% if selected_period == "2000s" %}selected{% endif %}>2000s</option>
+                        <option value="2010s" {% if selected_period == "2010s" %}selected{% endif %}>2010s</option>
+                        <option value="2020s" {% if selected_period == "2020s" %}selected{% endif %}>2020s</option>
+                    </select>
+                </div>
             </div>
             <textarea name="user_input" placeholder="Enter situation">{{ user_input }}</textarea>
             <div class="button-group">
@@ -197,6 +213,20 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const mobileDropdownContent = document.getElementById('mobileDropdownContent');
+            const mobileDropdownClose = document.getElementById('mobileDropdownClose');
+        
+            hamburgerMenu.addEventListener('click', () => {
+                mobileDropdownContent.classList.add('show');
+            });
+
+            mobileDropdownClose.addEventListener('click', () => {
+                mobileDropdownContent.classList.remove('show');
+            });
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
             const genreForm = document.getElementById('genre-form');
             const submitButton = document.getElementById('submit-button');
