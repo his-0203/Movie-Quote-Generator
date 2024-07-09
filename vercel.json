@@ -9,7 +9,7 @@
       "src": "app.py",
       "use": "@vercel/python",
       "config": {
-        "maxDuration": 300
+        "maxDuration": 60
       }
     }
   ],
