@@ -70,11 +70,11 @@
             <div>
                 <label for="period">Choose a period:</label>
                 <select name="period" id="period">
-                    <option value="1980s" {% if selected_style == "1980s" %}selected{% endif %}>1980s</option>
-                    <option value="1990s" {% if selected_style == "1990s" %}selected{% endif %}>1990s</option>
-                    <option value="2000s" {% if selected_style == "2000s" %}selected{% endif %}>2000s</option>
-                    <option value="2010s" {% if selected_style == "2010s" %}selected{% endif %}>2010s</option>
-                    <option value="2020s" {% if selected_style == "2020s" %}selected{% endif %}>2020s</option>
+                    <option value="1980s" {% if selected_period == "1980s" %}selected{% endif %}>1980s</option>
+                    <option value="1990s" {% if selected_period == "1990s" %}selected{% endif %}>1990s</option>
+                    <option value="2000s" {% if selected_period == "2000s" %}selected{% endif %}>2000s</option>
+                    <option value="2010s" {% if selected_period == "2010s" %}selected{% endif %}>2010s</option>
+                    <option value="2020s" {% if selected_period == "2020s" %}selected{% endif %}>2020s</option>
                 </select>
             </div>
             <textarea name="user_input" placeholder="Enter situation">{{ user_input }}</textarea>
@@ -177,7 +177,6 @@
             });
         });
 
-
         document.addEventListener('DOMContentLoaded', () => {
             const shareTwitterButton = document.getElementById('share-twitter');
         
@@ -241,28 +240,28 @@
             if (captureDiv && downloadButton) {
                 downloadButton.addEventListener('click', () => {
                     const images = captureDiv.getElementsByTagName('img');
+                    const originalSrc = [];
+
                     for (let img of images) {
-                        const originalSrc = img.src;
+                        originalSrc.push(img.src);
                         img.crossOrigin = "anonymous";
-                        img.src = `/api/proxy?url=${encodeURIComponent(originalSrc)}`;
+                        img.src = `/api/proxy?url=${encodeURIComponent(img.src)}`;
                     }
 
                     html2canvas(captureDiv, { useCORS: true }).then(canvas => {
                         saveImg(canvas.toDataURL('image/jpg'), 'image.jpg');
+                        for (let i = 0; i < images.length; i++) {
+                            images[i].src = originalSrc[i];
+                        }
                     });
                 });
             }
 
             const saveImg = (uri, filename) => {
                 let link = document.createElement('a');
-
-                document.body.appendChild(link);
-
                 link.href = uri;
                 link.download = filename;
                 link.click();
-
-                document.body.removeChild(link);
             };
         });
     </script>
