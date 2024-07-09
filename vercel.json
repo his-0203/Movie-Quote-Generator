@@ -6,7 +6,7 @@
       "use": "@vercel/static"
     },
     {
-      "src": "app.py",
+      "src": "api/app.py",
       "use": "@vercel/python"
     }
   ],
@@ -26,8 +26,8 @@
   ],
   
   "functions": {
-    "app.py": {
-      "maxDuration": 30
+    "api/app.py": {
+      "maxDuration": 60
     }
   }
 }
