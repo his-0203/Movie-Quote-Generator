@@ -24,6 +24,7 @@
       "dest": "/api/proxy.js"
     }
   ],
+  
   "functions": {
     "app.py": {
       "maxDuration": 30
