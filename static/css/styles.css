@@ -207,10 +207,21 @@ h1 {
     color: rgb(198, 198, 198);
 }
 
+.dropdown-content .disable:hover {
+    font-weight: 400;
+    color: rgb(198, 198, 198);
+}
+
 .mobile-dropdown-content .disable {
     font-weight: 400;
     color: rgb(198, 198, 198);
 }
+
+.mobile-dropdown-content .disable:hover {
+    font-weight: 400;
+    color: rgb(198, 198, 198);
+}
+
 
 
 
