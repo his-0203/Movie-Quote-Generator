@@ -8,19 +8,13 @@
     {
       "src": "app.py",
       "use": "@vercel/python",
-      "config": {
-        "maxDuration": 300
-      }
-    },
-    {
-      "src": "api/proxy.js",
-      "use": "@vercel/node"
+      "maxDuration": 60
     }
   ],
   "routes": [
     {
-      "src": "/ads.txt",
-      "dest": "/ads.txt"
+      "src": "/(.*)",
+      "dest": "app.py"
     },
     {
       "src": "/api/proxy",
