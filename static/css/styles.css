@@ -23,12 +23,13 @@ header {
     padding: 20px;
     width: 100%;
     text-align: center;
+    margin-bottom: 12px;
 }
 
 main {
     background-color: #ffffff;
     padding: 32px;
-    margin: 0 0 48px 0;
+    margin: 12px 0 48px 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     width: 90%;
