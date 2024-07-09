@@ -3,9 +3,6 @@ from openai import OpenAI, BadRequestError
 from dotenv import load_dotenv
 from langdetect import detect
 import os
-import requests
-import base64
-from io import BytesIO
 
 # .env 파일 로드
 load_dotenv()
