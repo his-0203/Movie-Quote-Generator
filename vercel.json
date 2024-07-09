@@ -11,6 +11,10 @@
       "config": {
         "maxDuration": 300
       }
+    },
+    {
+      "src": "api/proxy.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
@@ -19,12 +23,12 @@
       "dest": "/ads.txt"
     },
     {
-      "src": "/api/(.*)",
-      "dest": "/api/app.py"
-    },
-    {
       "src": "/api/proxy",
       "dest": "/api/proxy.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/app.py"
     }
   ]
 }
