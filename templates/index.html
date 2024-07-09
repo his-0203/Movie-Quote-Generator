@@ -16,8 +16,6 @@
     </script>
 
     <script defer src="/_vercel/insights/script.js"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -99,7 +97,6 @@
                 <img src="/static/images/x-logo.png" alt="X Logo" class="x-logo">
                 Share on X
             </button>
-            <button id="downloadButton" class="x-button">Download Image</button>
         {% endif %}
     </main>
 
@@ -232,38 +229,6 @@
                 errorModal.style.display = "none";
             }
         };
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const captureDiv = document.getElementById('quote-container');
-            const downloadButton = document.getElementById('downloadButton');
-
-            if (captureDiv && downloadButton) {
-                downloadButton.addEventListener('click', () => {
-                    const images = captureDiv.getElementsByTagName('img');
-                    const originalSrc = [];
-
-                    for (let img of images) {
-                        originalSrc.push(img.src);
-                        img.crossOrigin = "anonymous";
-                        img.src = `/api/proxy?url=${encodeURIComponent(img.src)}`;
-                    }
-
-                    html2canvas(captureDiv, { useCORS: true }).then(canvas => {
-                        saveImg(canvas.toDataURL('image/jpg'), 'image.jpg');
-                        for (let i = 0; i < images.length; i++) {
-                            images[i].src = originalSrc[i];
-                        }
-                    });
-                });
-            }
-
-            const saveImg = (uri, filename) => {
-                let link = document.createElement('a');
-                link.href = uri;
-                link.download = filename;
-                link.click();
-            };
-        });
     </script>
 </body>
 </html>

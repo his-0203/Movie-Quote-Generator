@@ -17,10 +17,6 @@
     {
       "src": "/(.*)",
       "dest": "app.py"
-    },
-    {
-      "src": "/api/proxy",
-      "dest": "/api/proxy.js"
     }
   ]
 }
