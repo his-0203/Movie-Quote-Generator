@@ -6,7 +6,7 @@
       "use": "@vercel/static"
     },
     {
-      "src": "api/app.py",
+      "src": "app.py",
       "use": "@vercel/python",
       "config": {
         "maxDuration": 300
@@ -25,10 +25,6 @@
     {
       "src": "/api/proxy",
       "dest": "/api/proxy.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/api/app.py"
     }
   ]
 }
