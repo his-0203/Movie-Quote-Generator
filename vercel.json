@@ -21,7 +21,7 @@
     },
     {
       "src": "/api/cors-handler",
-      "dest": "/api/cors-handler.js"
+      "dest": "api/cors-handler.js"
     }
   ]
 }
