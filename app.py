@@ -101,7 +101,7 @@ def generate_image():
         user_input = request.form.get('user_input')
 
         image_prompt = f"Create a scene from a {selected_genre} film in {selected_style} style from the {selected_period}. {user_input}"
-        image_response = client.chat.completions.create(
+        image_response = client.images.generate(
             model="dall-e-3",
             prompt=image_prompt,
             n=1,
