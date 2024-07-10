@@ -53,7 +53,6 @@ movie_genre = {
 
 def generate_movie_quote(user_input, selected_genre, selected_style, selected_period):
     try:
-        # 입력된 텍스트의 언어 감지
         language = detect(user_input)
         if language == 'ko':
             prompt = f"{movie_genre[selected_genre]['prompt_ko']} {user_input} 스타일: {selected_style}, 연도: {selected_period}"
