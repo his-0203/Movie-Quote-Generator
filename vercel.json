@@ -11,7 +11,11 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
+      "src": "/api/generate_text",
+      "dest": "app.py"
+    },
+    {
+      "src": "/api/generate_image",
       "dest": "app.py"
     },
     {
