@@ -7,7 +7,7 @@ import os
 # .env 파일 로드
 load_dotenv()
 
-app = Flask(__name__, template_folder='templates')
+app = Flask(__name__, template_folder='../templates')
 client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 # 장르와 프롬프트 설정
@@ -107,3 +107,7 @@ def home():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+# WSGI 사용을 위한 설정 추가
+if __name__ != '__main__':
+    application = app
