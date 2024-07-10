@@ -85,7 +85,8 @@ def generate_quote():
 
             return jsonify({'response_text': response_text})
 
-    except BadRequestError:
+    except BadRequestError as e:
+        print(f"BadRequestError: {e}")
         return jsonify({'error': 'BadRequestError'})
     except Exception as e:
         print(f"Unexpected Error: {e}")
@@ -100,7 +101,7 @@ def generate_image():
         user_input = request.form.get('user_input')
 
         image_prompt = f"Create a scene from a {selected_genre} film in {selected_style} style from the {selected_period}. {user_input}"
-        image_response = client.images.generate(
+        image_response = client.chat.completions.create(
             model="dall-e-3",
             prompt=image_prompt,
             n=1,
@@ -111,7 +112,8 @@ def generate_image():
 
         return jsonify({'response_image': response_image})
 
-    except BadRequestError:
+    except BadRequestError as e:
+        print(f"BadRequestError: {e}")
         return jsonify({'error': 'BadRequestError'})
     except Exception as e:
         print(f"Unexpected Error: {e}")
