@@ -51,7 +51,7 @@ movie_genre = {
     }
 }
 
-def generate_movie_quote(user_input, selected_genre, selected_style, selected_period):
+def generate_movie_quote_text(user_input, selected_genre, selected_style, selected_period):
     try:
         language = detect(user_input)
         if language == 'ko':
@@ -67,8 +67,15 @@ def generate_movie_quote(user_input, selected_genre, selected_style, selected_pe
             ],
             temperature=0.5,
         )
-        response_text = text_response.choices[0].message.content
+        return text_response.choices[0].message.content
+    except BadRequestError:
+        return None
+    except Exception as e:
+        print(f"Unexpected Error: {e}")
+        return None
 
+def generate_movie_quote_image(user_input, selected_genre, selected_style, selected_period):
+    try:
         image_prompt = f"Create a scene from a {selected_genre} film in {selected_style} style from the {selected_period}. {user_input}"
         image_response = client.images.generate(
             model="dall-e-3",
@@ -77,11 +84,9 @@ def generate_movie_quote(user_input, selected_genre, selected_style, selected_pe
             size="1024x1024",
             quality="standard"
         )
-        response_image = image_response.data[0].url
-
-        return response_text, response_image
+        return image_response.data[0].url
     except BadRequestError:
-        return None, None
+        return None
     except Exception as e:
         print(f"Unexpected Error: {e}")
-        return None, None
+        return None
