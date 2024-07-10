@@ -85,20 +85,18 @@ def home():
                         {"role": "system", "content": "You are a movie writer. Write one line of dialog that fits the genre, style, and time period."},
                         {"role": "user", "content": prompt}
                     ],
-                    temperature=0.5,
+                    temperature=0.5
                 )
                 response_text = text_response.choices[0].message.content
 
                 image_prompt = f"Create a scene from a {selected_genre} film in {selected_style} style from the {selected_period}. {user_input}"
                 image_response = client.images.generate(
-                    model="dall-e-3",
                     prompt=image_prompt,
                     n=1,
-                    size="1024x1024",
-                    quality="standard"
+                    size="1024x1024"
                 )
                 response_image = image_response.data[0].url
-
+                
         except BadRequestError:
             show_error_modal = True
         except Exception as e:
