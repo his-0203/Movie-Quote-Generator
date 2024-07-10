@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from api.ai_utils import generate_movie_quote_text, generate_movie_quote_image
+from ai_utils import generate_movie_quote_text, generate_movie_quote_image
 
 app = Flask(__name__)
 
