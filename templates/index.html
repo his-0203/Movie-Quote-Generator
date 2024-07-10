@@ -73,7 +73,7 @@
         </nav>
     </header>
     <main>
-        <form id="genre-form">
+        <form method="POST" id="genre-form">
             <div class="select-container">
                 <div class="select-box">
                     <label for="genre">🎭 Choose a genre:</label>
@@ -105,9 +105,9 @@
                     </select>
                 </div>
             </div>
-            <textarea name="user_input" placeholder="Enter situation" id="user_input">{{ user_input }}</textarea>
+            <textarea name="user_input" placeholder="Enter situation">{{ user_input }}</textarea>
             <div class="button-group">
-                <button type="button" id="submit-button" onclick="generateQuote()">
+                <button type="submit" id="submit-button">
                     <span class="button-text">Generate Quote 🍿</span>
                     <div class="spinner" id="button-spinner" style="display: none;"></div>
                 </button>
@@ -116,8 +116,18 @@
             <p class="supportText">Since the AI execution costs are covered by the creator, clicking the generate button will open an advertisement.<br>Thank you for your support! ✨</p>
         </form>
         <button type="button" class="info-button" onclick="openModal()">Result Disclaimer</button>
-        <div id="quote-container"></div>
-        <div id="response-container"></div>
+        {% if response and not show_error_modal %}
+            <section class="response-section">
+                <div id="quote-container" class="quote-container">
+                    <img src="{{ response_image }}" alt="Generated Image" class="quote-image">
+                    <div class="quote-text">{{ response }}</div>
+                </div>
+            </section>
+            <button id="share-twitter" class="x-button" data-response-text="{{ response }}">
+                <img src="/static/images/x-logo.png" alt="X Logo" class="x-logo">
+                Share on X
+            </button>
+        {% endif %}
     </main>
 
     <!-- 광고 영역 -->
@@ -173,7 +183,8 @@
             <script type="text/javascript" src="//www.topcreativeformat.com/f8b8a5a75f567d29ca8a13484399d0ba/invoke.js"></script>
         </div>
     </div>
-    
+
+
     <footer>
         <p>&copy; 2024 Heesoo Jin. All rights reserved.</p>
     </footer>
@@ -288,92 +299,6 @@
                 errorModal.style.display = "none";
             }
         };
-
-        function generateQuote() {
-            const genre = document.getElementById('genre').value;
-            const style = document.getElementById('style').value;
-            const period = document.getElementById('period').value;
-            const userInput = document.getElementById('user_input').value;
-            const submitButton = document.getElementById('submit-button');
-            const buttonText = document.querySelector('.button-text');
-            const buttonSpinner = document.getElementById('button-spinner');
-        
-            submitButton.disabled = true;
-            buttonText.style.display = 'none';
-            buttonSpinner.style.display = 'block';
-        
-            fetch('https://movie-scene-generator.vercel.app/api/generate_text', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    genre: genre,
-                    style: style,
-                    period: period,
-                    user_input: userInput
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    alert(data.error);
-                    submitButton.disabled = false;
-                    buttonText.style.display = 'block';
-                    buttonSpinner.style.display = 'none';
-                } else {
-                    const responseText = data.quote;
-                    fetch('https://movie-scene-generator.vercel.app/api/generate_image', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            genre: genre,
-                            style: style,
-                            period: period,
-                            user_input: userInput
-                        }),
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        submitButton.disabled = false;
-                        buttonText.style.display = 'block';
-                        buttonSpinner.style.display = 'none';
-        
-                        if (data.error) {
-                            alert(data.error);
-                        } else {
-                            const responseContainer = document.getElementById('response-container');
-                            responseContainer.innerHTML = `
-                                <section class="response-section">
-                                    <div id="quote-container" class="quote-container">
-                                        <img src="${data.image}" alt="Generated Image" class="quote-image">
-                                        <div class="quote-text">${responseText}</div>
-                                    </div>
-                                </section>
-                                <button id="share-twitter" class="x-button" data-response-text="${responseText}">
-                                    <img src="/static/images/x-logo.png" alt="X Logo" class="x-logo">
-                                    Share on X
-                                </button>
-                            `;
-                        }
-                    })
-                    .catch(error => {
-                        submitButton.disabled = false;
-                        buttonText.style.display = 'block';
-                        buttonSpinner.style.display = 'none';
-                        console.error('Error:', error);
-                    });
-                }
-            })
-            .catch(error => {
-                submitButton.disabled = false;
-                buttonText.style.display = 'block';
-                buttonSpinner.style.display = 'none';
-                console.error('Error:', error);
-            });
-        }
     </script>
 </body>
 </html>
