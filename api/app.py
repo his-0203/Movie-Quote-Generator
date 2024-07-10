@@ -83,7 +83,7 @@ def home():
                 text_response = client.chat.completions.create(
                     model="gpt-3.5-turbo",
                     messages=[
-                        {"role": "system", "content": "You are a movie writer. Write one line of dialog that fits the genre, style, and time period."},
+                        {"role": "system", "content": "You're a movie writer: write a natural one-liner that fits a specific genre, style, and time period."},
                         {"role": "user", "content": prompt}
                     ],
                     temperature=0.5
