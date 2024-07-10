@@ -10,7 +10,6 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-3V3DJ61DL6');
     </script>
 
@@ -116,18 +115,16 @@
             <p class="supportText">Since the AI execution costs are covered by the creator, clicking the generate button will open an advertisement.<br>Thank you for your support! ✨</p>
         </form>
         <button type="button" class="info-button" onclick="openModal()">Result Disclaimer</button>
-        {% if response and not show_error_modal %}
-            <section class="response-section">
-                <div id="quote-container" class="quote-container">
-                    <img src="{{ response_image }}" alt="Generated Image" class="quote-image">
-                    <div class="quote-text">{{ response }}</div>
-                </div>
-            </section>
-            <button id="share-twitter" class="x-button" data-response-text="{{ response }}">
-                <img src="/static/images/x-logo.png" alt="X Logo" class="x-logo">
-                Share on X
-            </button>
-        {% endif %}
+        <section id="response-section" class="response-section" style="display:none;">
+            <div id="quote-container" class="quote-container">
+                <img id="generated-image" src="" alt="Generated Image" class="quote-image" style="display:none;">
+                <div id="quote-text" class="quote-text"></div>
+            </div>
+        </section>
+        <button id="share-twitter" class="x-button" style="display:none;">
+            <img src="/static/images/x-logo.png" alt="X Logo" class="x-logo">
+            Share on X
+        </button>
     </main>
 
     <!-- 광고 영역 -->
@@ -235,33 +232,73 @@
             const submitButton = document.getElementById('submit-button');
             const buttonText = document.querySelector('.button-text');
             const buttonSpinner = document.getElementById('button-spinner');
-
+            const responseSection = document.getElementById('response-section');
+            const quoteContainer = document.getElementById('quote-container');
+            const quoteText = document.getElementById('quote-text');
+            const generatedImage = document.getElementById('generated-image');
+            const shareTwitterButton = document.getElementById('share-twitter');
+        
             genreForm.addEventListener('submit', event => {
+                event.preventDefault();  // 기본 동작 막기
                 submitButton.disabled = true;
                 buttonText.style.display = 'none';
                 buttonSpinner.style.display = 'block';
+        
+                const formData = new FormData(genreForm);
+                fetch('/generate-quote', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.response_text) {
+                        quoteText.textContent = data.response_text;
+                        responseSection.style.display = 'block';
+                        return fetch('/generate-image', {
+                            method: 'POST',
+                            body: formData
+                        });
+                    } else {
+                        throw new Error('Failed to generate quote.');
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.response_image) {
+                        generatedImage.src = data.response_image;
+                        generatedImage.style.display = 'block';
+                        shareTwitterButton.style.display = 'block';
+                        shareTwitterButton.setAttribute('data-response-text', quoteText.textContent);
+                    } else {
+                        throw new Error('Failed to generate image.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('There was an error generating the content. Please try again.');
+                })
+                .finally(() => {
+                    submitButton.disabled = false;
+                    buttonText.style.display = 'block';
+                    buttonSpinner.style.display = 'none';
+                });
+
                 window.open('https://www.highrevenuenetwork.com/xask42320?key=be65e8aa85aaf9498b129898d2bd3e57', '_blank'); // 새 탭으로 링크 열기
             });
-        });
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const shareTwitterButton = document.getElementById('share-twitter');
-        
             if (shareTwitterButton) {
                 shareTwitterButton.addEventListener('click', () => {
                     const url = encodeURIComponent(window.location.href);
                     const responseText = shareTwitterButton.getAttribute('data-response-text');
-        
-                    // Check user's language
                     const userLang = navigator.language || navigator.userLanguage;
                     let text;
-        
+
                     if (userLang === 'ko' || userLang === 'ko-KR') {
                         text = `${responseText}\n\n당신만의 영화의 한장면과 대사를 만들어보세요.🎬\n#MovieQuoteGenerator #명대사제조기`;
                     } else {
                         text = `${responseText}\n\nCreate your own movie scenes and dialog.🎬\n#MovieQuoteGenerator`
                     }
-        
+
                     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${url}`;
                     window.open(twitterUrl, '_blank');
                 });

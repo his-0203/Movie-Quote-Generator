@@ -1,4 +1,4 @@
-from flask import Flask, Response, render_template, request
+from flask import Flask, render_template, request, jsonify
 from openai import OpenAI, BadRequestError
 from dotenv import load_dotenv
 from langdetect import detect
@@ -56,65 +56,66 @@ movie_genre = {
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    selected_genre = None
-    selected_style = None
-    selected_period = None
-    response_text = None
-    response_image = None
-    user_input = ""
-    show_error_modal = False
+    return render_template('index.html', movie_genre=movie_genre)
 
-    if request.method == 'POST':
+@app.route('/generate-quote', methods=['POST'])
+def generate_quote():
+    selected_genre = request.form.get('genre')
+    selected_style = request.form.get('style')
+    selected_period = request.form.get('period')
+    user_input = request.form.get('user_input')
+
+    try:
+        language = detect(user_input)
+        if language == 'ko':
+            prompt = f"{movie_genre[selected_genre]['prompt_ko']} {user_input} 스타일: {selected_style}, 연도: {selected_period}"
+        else:
+            prompt = f"{movie_genre[selected_genre]['prompt_en']} {user_input} Style: {selected_style}, Decade: {selected_period}"
+
+        if user_input and selected_genre and selected_style and selected_period:
+            text_response = client.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": "You are a movie writer. Write one line of dialog that fits the genre, style, and time period."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.5,
+            )
+            response_text = text_response.choices[0].message['content']
+
+            return jsonify({'response_text': response_text})
+
+    except BadRequestError:
+        return jsonify({'error': 'BadRequestError'})
+    except Exception as e:
+        print(f"Unexpected Error: {e}")
+        return jsonify({'error': str(e)})
+
+@app.route('/generate-image', methods=['POST'])
+def generate_image():
+    try:
         selected_genre = request.form.get('genre')
         selected_style = request.form.get('style')
         selected_period = request.form.get('period')
         user_input = request.form.get('user_input')
 
-        def generate():
-            try:
-                # 입력된 텍스트의 언어 감지
-                language = detect(user_input)
-                if language == 'ko':
-                    prompt = f"{movie_genre[selected_genre]['prompt_ko']} {user_input} 스타일: {selected_style}, 연도: {selected_period}"
-                else:
-                    prompt = f"{movie_genre[selected_genre]['prompt_en']} {user_input} Style: {selected_style}, Decade: {selected_period}"
+        image_prompt = f"Create a scene from a {selected_genre} film in {selected_style} style from the {selected_period}. {user_input}"
+        image_response = client.Image.create(
+            model="dall-e-3",
+            prompt=image_prompt,
+            n=1,
+            size="1024x1024",
+            quality="standard"
+        )
+        response_image = image_response.data[0].url
 
-                if user_input and selected_genre and selected_style and selected_period:
-                    yield "data: Generating text response...\n\n"
-                    text_response = client.chat.completions.create(
-                        model="gpt-3.5-turbo",
-                        messages=[
-                            {"role": "system", "content": "You are a movie writer. Write one line of dialog that fits the genre, style, and time period."},
-                            {"role": "user", "content": prompt}
-                        ],
-                        temperature=0.5,
-                    )
-                    response_text = text_response.choices[0].message.content
-                    yield f"data: Text response generated: {response_text}\n\n"
+        return jsonify({'response_image': response_image})
 
-                    yield "data: Generating image response...\n\n"
-                    image_prompt = f"Create a scene from a {selected_genre} film in {selected_style} style from the {selected_period}. {user_input}"
-                    image_response = client.images.generate(
-                        model="dall-e-3",
-                        prompt=image_prompt,
-                        n=1,
-                        size="1024x1024",
-                        quality="standard"
-                    )
-                    response_image = image_response.data[0].url
-                    yield f"data: Image response generated: {response_image}\n\n"
-
-            except BadRequestError:
-                show_error_modal = True
-                yield "data: Error occurred: BadRequestError\n\n"
-            except Exception as e:
-                print(f"Unexpected Error: {e}")
-                show_error_modal = True
-                yield f"data: Unexpected error: {e}\n\n"
-
-        return Response(generate(), content_type='text/event-stream')
-
-    return render_template('index.html', movie_genre=movie_genre, selected_genre=selected_genre, selected_style=selected_style, selected_period=selected_period, user_input=user_input, response=response_text, response_image=response_image, show_error_modal=show_error_modal)
+    except BadRequestError:
+        return jsonify({'error': 'BadRequestError'})
+    except Exception as e:
+        print(f"Unexpected Error: {e}")
+        return jsonify({'error': str(e)})
 
 if __name__ == '__main__':
     app.run(debug=True)
