@@ -81,7 +81,7 @@ def generate_quote():
                 ],
                 temperature=0.5,
             )
-            response_text = text_response.choices[0].message['content']
+            response_text = text_response.choices[0].message.content
 
             return jsonify({'response_text': response_text})
 
