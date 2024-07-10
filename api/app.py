@@ -93,8 +93,10 @@ def home():
                 image_prompt = f"Create a scene from a {selected_genre} film in {selected_style} style from the {selected_period}. {user_input}"
                 image_response = client.images.generate(
                     prompt=image_prompt,
-                    n=1,
-                    size="1024x1024"
+                    model="dall-e-3",
+                    size="1024x1024",
+                    quality="standard",
+                    n=1
                 )
                 response_image = image_response.data[0].url
                 
