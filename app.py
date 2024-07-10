@@ -73,7 +73,7 @@ def generate_quote():
             prompt = f"{movie_genre[selected_genre]['prompt_en']} {user_input} Style: {selected_style}, Decade: {selected_period}"
 
         if user_input and selected_genre and selected_style and selected_period:
-            text_response = client.ChatCompletion.create(
+            text_response = client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[
                     {"role": "system", "content": "You are a movie writer. Write one line of dialog that fits the genre, style, and time period."},
@@ -100,7 +100,7 @@ def generate_image():
         user_input = request.form.get('user_input')
 
         image_prompt = f"Create a scene from a {selected_genre} film in {selected_style} style from the {selected_period}. {user_input}"
-        image_response = client.Image.create(
+        image_response = client.images.generate(
             model="dall-e-3",
             prompt=image_prompt,
             n=1,
