@@ -302,7 +302,7 @@
             buttonText.style.display = 'none';
             buttonSpinner.style.display = 'block';
         
-            fetch('/api/generate_text', {
+            fetch('https://movie-scene-generator.vercel.app/api/generate_text', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -323,7 +323,7 @@
                     buttonSpinner.style.display = 'none';
                 } else {
                     const responseText = data.quote;
-                    fetch('/api/generate_image', {
+                    fetch('https://movie-scene-generator.vercel.app/api/generate_image', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
