@@ -7,7 +7,7 @@ import os
 # .env 파일 로드
 load_dotenv()
 
-app = Flask(__name__, template_folder='../templates')
+app = Flask(__name__, static_folder='../static', template_folder='../templates')
 client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 # 장르와 프롬프트 설정
@@ -54,7 +54,8 @@ movie_genre = {
     }
 }
 
-@app.route('/')
+
+@app.route('/', methods=['GET', 'POST'])
 def home():
     selected_genre = None
     selected_style = None
