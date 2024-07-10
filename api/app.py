@@ -37,5 +37,5 @@ def generate_image():
 
     return jsonify({'image': response_image})
 
-if __name__ != "__main__":
-    application = app
+if __name__ == '__main__':
+    app.run(debug=True)
