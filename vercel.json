@@ -7,9 +7,20 @@
       "config": {
         "maxDuration": 60
       }
+    },
+    {
+      "src": "api/ai_utils.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxDuration": 60
+      }
     }
   ],
   "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "api/ai_utils.py"
+    },
     {
       "src": "/(.*)",
       "dest": "app.py"
