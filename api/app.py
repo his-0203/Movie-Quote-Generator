@@ -81,7 +81,7 @@ def home():
 
             if user_input and selected_genre and selected_style and selected_period:
                 text_response = client.chat.completions.create(
-                    model="gpt-3.5-turbo",
+                    model="gpt-4o",
                     messages=[
                         {"role": "system", "content": "You're a movie writer: write a natural one-liner that fits a specific genre, style, and time period."},
                         {"role": "user", "content": prompt}
