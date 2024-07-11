@@ -353,17 +353,8 @@ textarea {
     display: none; /* 기본적으로 숨김 */
 }
 
-.outline-button {
-    padding: 8px 16px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #cfdaf1;
-    background-color: transparent;
-    border: 1px solid #bbc4d6;
-    border-radius: 8px;
+.support-button {
     cursor: pointer;
-    min-height: 48px;
-    min-width: 240px;
     position: relative;
     display: flex;
     justify-content: center;
