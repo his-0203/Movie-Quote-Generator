@@ -22,6 +22,8 @@ html, body {
     background-size: cover;
     background-repeat: no-repeat;
     overflow: auto;
+    overflow-x: hidden; /* 가로 스크롤 숨기기 */
+    box-sizing: border-box; /* 이 부분 추가 */
 }
 
 header {
