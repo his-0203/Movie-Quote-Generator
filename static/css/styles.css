@@ -476,7 +476,7 @@ footer p {
 /* 추가된 미디어 쿼리 */
 @media (max-width: 768px) {
     .quote-text {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .button-group {
