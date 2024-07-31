@@ -130,7 +130,7 @@ h1 {
 .dropdown:hover .dropdown-content {
     visibility: visible; /* 보이기 */
     opacity: 1; /* 투명도 복원 */
-    max-height: 200px; /* Adjust this value as needed */
+    max-height: 300px; /* Adjust this value as needed */
     margin-top: 16px;
 }
 
