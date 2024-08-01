@@ -451,16 +451,6 @@ textarea {
     margin-right: 8px;
 }
 
-
-#ad-small-screen {
-    display: none;
-}
-
-#ad-large-screen {
-    display: none;
-}
-
-
 footer {
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
@@ -486,10 +476,6 @@ footer p {
     #submit-button {
         margin-right: 0px;
         margin-bottom: 12px;
-    }
-
-    #ad-small-screen {
-        display: block;
     }
 
     .nav-menu {
@@ -539,12 +525,6 @@ footer p {
         right: -80%; /* 오른쪽 밖으로 숨기기 */
         width: 80%; /* 화면의 70% 차지 */
 
-    }
-}
-
-@media (min-width: 769px) {
-    #ad-large-screen {
-        display: block;
     }
 }
 
